@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>robinwgr - Links</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-color: #10111a;
+            font-family: 'Courier Prime', monospace;
+        }
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            transform: translateY(-50%);
+        }
+        .cursor {
+            border-right: 2px solid #fff;
+            animation: blink 1s infinite;
+        }
+        .link-container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        .link-item:hover {
+            background: #fff;
+            transform: scale(1.05);
+        }
+        .link-item img {
+            margin-right: 10px;
+            width: 30px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: transparent;
+        }
+        .footer img {
+            width: 20px;
+            margin-left: 10px;
+        }
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .link-container {
+                width: 90%;
+            }
+            .link-item img {
+                width: 20px;
+            }
+            .footer img {
+                width: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="header">
+        <h1 id="headerTitle"><span id="typedText"></span><span class="cursor"></span></h1>
+    </div>
+    <div class="link-container" id="linkContainer"></div>
+    <div class="footer">
+        <a href="https://github.com/robinwgr/robinwagner.de" style="color: #fff;">
+            Open Source Project
+        </a>
+        <a href="mailto:info@robinwagner.de" style="color: #fff;">
+            <img src="/images/mail_icon.png" alt="Email Icon">
+        </a>
+    </div>
+
+    <script>
+        var particleConfig;
+        if(window.innerWidth <= 768) {
+            particleConfig = '/config/particle_config_small.json';
+        } else {
+            particleConfig = '/config/particle_config.json';
+        }
+
+        particlesJS.load('particles-js', particleConfig, function() {
+            console.log('Particles.js config loaded');
+        });
+
+        const links = [
+            { icon: '/images/instagram_icon.png', url: 'https://www.instagram.com/robinwgr', name: 'Instagram - robinwgr' },
+            { icon: '/images/x_icon.png', url: 'https://www.x.com/robinwgr', name: 'X - robinwgr' },
+            { icon: '/images/snapchat_icon.png', url: 'https://www.snapchat.com/add/rbn.wgr', name: 'Snapchat - rbn.wgr' },
+            { icon: '/images/bereal_icon.png', url: 'https://bere.al/robinwgr', name: 'BeReal - robinwgr' },
+            { icon: '/images/github_icon.png', url: 'https://github.com/robinwgr', name: 'GitHub - robinwgr' }
+        ];
+        const linkContainer = document.getElementById('linkContainer');
+
+        links.forEach(link => {
+            const linkItem = document.createElement('a');
+            linkItem.href = link.url;
+            linkItem.target = '_blank'; 
+            linkItem.className = 'link-item';
+            linkItem.innerHTML = `<img src="${link.icon}" alt="${link.name} Icon"> ${link.name}`;
+            linkContainer.appendChild(linkItem);
+        });
+
+        const title = 'robinwgr - Links';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < title.length) {
+                document.getElementById('typedText').innerHTML += title.charAt(i);
+                i++;
+                setTimeout(typeWriter, 200);
+            }
+        }
+
+        typeWriter();
+    </script>
+</body>
+</html>
